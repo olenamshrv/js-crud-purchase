@@ -1,0 +1,55 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  gap: 40px;
+}
+.form__title {
+  color: #0056F9;
+  font-weight: bold;
+  font-size: 20px;
+}
+.form__title--small {
+  font-size: 12px;
+  font-weight: bold;
+}
+.form__product-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 16px;
+  row-gap: 32px;
+}
+.form__card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e4e2e2;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+  padding: 16px;
+  justify-content: space-between;
+  gap: 12px;
+}
+.form__card__text {
+  font-size: 10px;
+  line-height: 1.5;
+}
+.form__card__id {
+  font-size: 10px;
+  color: rgb(105, 102, 102);
+}
+.form__card__footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.form__card__footer__info {
+  font-size: 12px;
+}
+.form__card__footer__button {
+  color: #0056F9;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+/*# sourceMappingURL=style.css.map */

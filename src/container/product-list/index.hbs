@@ -1,0 +1,19 @@
+<main>
+  <div class='form'>
+    <h1 class='form__title'>Список товарів</h1>
+
+    <form method='GET' action='/product-list'>
+      <div class='form__product-list'>
+        {{#with data.products}}
+          {{#if isEmpty}}
+            <mark>Немає товарів у списку</mark>
+          {{else}}
+            {{#each list}}
+              {{>product-card data=this}}
+            {{/each}}
+          {{/if}}
+        {{/with}}
+      </div>
+    </form>
+  </div>
+</main>

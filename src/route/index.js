@@ -62,6 +62,79 @@ class User {
 
 // ================================================================
 
+class Product {
+  static #list = []
+
+  constructor(name, price, description) {
+    let randomNumber = Math.trunc(Math.random() * 100000)
+
+    while (
+      randomNumber === 0 ||
+      Product.#list.find(
+        (product) => product.id === randomNumber,
+      ) !== undefined
+    ) {
+      randomNumber = Math.trunc(Math.random() * 100000)
+    }
+    this.id = Math.trunc(Math.random() * 100000)
+    this.createDate = new Date()
+    this.name = name
+    this.price = price
+    this.description = description
+  }
+
+  static getList() {
+    return this.#list
+  }
+
+  static add(product) {
+    this.#list.push(product)
+  }
+
+  static getById(id) {
+    return this.#list.find((product) => product.id === id)
+  }
+
+  static updateById(id, data) {
+    const product = this.getById(id)
+
+    if (product === undefined) {
+      return false
+    }
+
+    const { name, price, description } = data
+
+    if (name) {
+      product.name = name
+    }
+
+    if (price) {
+      product.price = price
+    }
+
+    if (description) {
+      product.description = description
+    }
+
+    return true
+  }
+
+  static deleteById(id) {
+    const index = this.#list.findIndex(
+      (product) => product.id === id,
+    )
+
+    if (index !== -1) {
+      this.#list.splice(index, 1)
+      return true
+    } else {
+      return false
+    }
+  }
+}
+
+// ================================================================
+
 // router.get Створює нам один ентпоїнт
 
 // ↙️ тут вводимо шлях (PATH) до сторінки
@@ -155,6 +228,192 @@ router.post('/user-update', function (req, res) {
     info: result
       ? 'Email пошта оновлена'
       : 'Сталася помилка',
+  })
+})
+
+// ================================================================
+
+// router.get Створює нам один ентпоїнт
+
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/product-create', function (req, res) {
+  // res.render генерує нам HTML сторінку
+
+  const list = Product.getList()
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('product-create', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+
+    style: 'product-create',
+
+    data: {
+      products: {
+        list,
+        isEmpty: list.length === 0,
+      },
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+// router.get Створює нам один ентпоїнт
+
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.post('/product-create', function (req, res) {
+  console.log(req.body)
+
+  const { name, price, description } = req.body
+
+  const product = new Product(name, price, description)
+
+  Product.add(product)
+
+  console.log(Product.getList())
+
+  // res.render генерує нам HTML сторінку
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+
+  res.render('alert', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'alert',
+    info: 'Успішне виконання дії',
+    details: 'Товар був успішно доданий',
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+// router.get Створює нам один ентпоїнт
+
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/product-list', function (req, res) {
+  // res.render генерує нам HTML сторінку
+
+  // Product.add(
+  //   new Product('TV', 1250, 'Toshiba, 100 inches'),
+  // )
+
+  // Product.add(
+  //   new Product(
+  //     'Стіл із регулюванням висоти',
+  //     4699,
+  //     'Стіл із регулюванням висоти RZTK Desk Compact White 700 х 400 мм',
+  //   ),
+  // )
+
+  // Product.add(
+  //   new Product(
+  //     'Кавовий столик',
+  //     2802,
+  //     'Кавовий столик Nowy Styl FINE ordf ALU (36) D680 Білий',
+  //   ),
+  // )
+
+  // Product.add(
+  //   new Product(
+  //     'Кавовий столик',
+  //     2802,
+  //     'Кавовий столик Nowy Styl FINE ordf ALU (36) D680 Білий',
+  //   ),
+  // )
+
+  // Product.add(
+  //   new Product(
+  //     'Кавовий столик',
+  //     2802,
+  //     'Кавовий столик Nowy Styl FINE ordf ALU (36) D680 Білий',
+  //   ),
+  // )
+
+  const list = Product.getList()
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('product-list', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+
+    style: 'product-list',
+
+    data: {
+      products: {
+        list,
+        isEmpty: list.length === 0,
+      },
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+router.get('/product-edit', function (req, res) {
+  const { id } = req.query
+  const product = Product.getById(Number(id))
+
+  if (product === undefined) {
+    res.render('alert', {
+      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+      style: 'alert',
+      info: 'Сталася помилка',
+      details: 'Товар з таким ID не знайдено',
+    })
+  } else {
+    res.render('product-edit', {
+      style: 'product-edit',
+
+      data: {
+        product: product,
+      },
+    })
+  }
+})
+
+//================================================================
+
+router.post('/product-edit', function (req, res) {
+  const { name, price, description, id } = req.body
+
+  const result = Product.updateById(Number(id), {
+    name,
+    price,
+    description,
+  })
+
+  let info = ''
+  let details = ''
+
+  if (result === true) {
+    info = 'Успішне виконання дії'
+    details = 'Товар був успішно оновлено'
+  } else {
+    info = 'Сталася помилка'
+    details = 'Товар не був оновлений'
+  }
+
+  res.render('alert', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'alert',
+    info: info,
+    details: details,
+  })
+})
+
+// ================================================================
+
+router.get('/product-delete', function (req, res) {
+  const { id } = req.query
+
+  const result = Product.deleteById(Number(id))
+
+  res.render('alert', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'alert',
+    info: 'Успішне виконання дії',
+    details: 'Товар було успішно видалено',
   })
 })
 
