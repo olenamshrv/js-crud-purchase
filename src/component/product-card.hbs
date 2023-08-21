@@ -1,0 +1,24 @@
+{{#with data}}
+  <div class='form__card'>
+    <h2 class='form__title--small'>
+      {{name}}
+    </h2>
+    <p class='form__card__text'>
+      {{description}}
+    </p>
+    <span class='form__card__id'>
+      ID:
+      {{id}}
+    </span>
+
+    <div class='form__card__footer'>
+      <span class='form__card__footer__info'>
+        {{price}}₴
+      </span>
+      <a
+        href='/product-edit?id={{id}}'
+        class='form__card__footer__button'
+      >Редагувати</a>
+    </div>
+  </div>
+{{/with}}

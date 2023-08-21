@@ -1,0 +1,76 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  gap: 40px;
+}
+.form__title {
+  color: #0056F9;
+  font-weight: bold;
+  font-size: 20px;
+}
+.form__title--medium {
+  font-weight: bold;
+}
+.form__content {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e4e2e2;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+  padding: 16px;
+  gap: 16px;
+}
+.form__fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.form__field--double {
+  grid-column: 1/4;
+}
+.form__label {
+  font-size: 12px;
+}
+.form__input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  padding: 8px;
+}
+.form__input--high {
+  min-height: 50px;
+}
+.form__input__caption {
+  font-size: 10px;
+  color: rgb(105, 102, 102);
+}
+.form__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.form__button {
+  background-color: #0056F9;
+  padding: 8px;
+  color: #ddd;
+  border-radius: 4px;
+  border: 1px solid #0056F9;
+  font-size: 14px;
+  width: 50%;
+}
+.form__button--red {
+  background-color: red;
+  border: 1px solid red;
+  text-decoration: none;
+  text-align: center;
+}
+
+/*# sourceMappingURL=style.css.map */
