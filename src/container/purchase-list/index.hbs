@@ -7,10 +7,10 @@
   {{>heading title="Мої замовлення" options="heading--big-bottom-margin"}}
 
   <div class="main__table">
-    {{#each data.list}}
+    {{#each data.list}}                                             
       <div class="main__table__item">
         <a href="/purchase-info?id={{id}}" class="main__table__item__link base-text">ID: {{id}}</a>
-
+      
         {{>table-field title="Товари" info=product.title}}
 
         {{>table-field title="Сума замовлення" info=totalPrice hrn="₴"}}
@@ -19,8 +19,8 @@
       </div>
 
       {{#if @last}}
-      {{else}}
-        {{>divider}}
+        {{else}}
+          {{>divider}}
       {{/if}}
 
     {{/each}}
